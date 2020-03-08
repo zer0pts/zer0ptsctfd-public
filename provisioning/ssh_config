@@ -1,0 +1,32 @@
+Host node-1
+  HostName 127.0.0.1
+  User vagrant
+  Port 2222
+  UserKnownHostsFile /dev/null
+  StrictHostKeyChecking no
+  PasswordAuthentication no
+  IdentityFile ../dev/.vagrant/machines/node-1/virtualbox/private_key
+  IdentitiesOnly yes
+  LogLevel FATAL
+
+Host node-2
+  HostName 127.0.0.1
+  User vagrant
+  Port 2200
+  UserKnownHostsFile /dev/null
+  StrictHostKeyChecking no
+  PasswordAuthentication no
+  IdentityFile ../dev/.vagrant/machines/node-2/virtualbox/private_key
+  IdentitiesOnly yes
+  LogLevel FATAL
+
+Host node-3
+  HostName 127.0.0.1
+  User vagrant
+  Port 2201
+  UserKnownHostsFile /dev/null
+  StrictHostKeyChecking no
+  PasswordAuthentication no
+  IdentityFile ../dev/.vagrant/machines/node-3/virtualbox/private_key
+  IdentitiesOnly yes
+  LogLevel FATAL

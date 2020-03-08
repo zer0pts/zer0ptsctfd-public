@@ -1,0 +1,60 @@
+---
+- hosts: transfersh
+  become: yes
+  vars:
+    user: transfersh
+    password: transfershpassword
+  tasks:
+    - name: Add docker GPG key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+      become: yes
+
+    - name: Install basic list of packages
+      apt:
+        name: "{{ packages }}"
+        state: present
+        update_cache: yes
+      vars:
+        packages: ['apt-transport-https', 'ca-certificates', 'curl', 'gnupg-agent', 'software-properties-common']
+      become: yes
+
+    - name: Add apt repository
+      apt_repository:
+        repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
+      become: yes
+
+    - name: Install Docker packages
+      apt:
+        name: "{{ packages }}"
+        state: present
+      vars:
+        packages: ['docker-ce', 'docker-ce-cli', 'containerd.io', 'python-docker']
+      become: yes
+
+    - name: Add user to docker group
+      user:
+        name: "{{ ansible_env.USER }}"
+        groups: docker
+        append: yes
+      become: yes
+
+    - name: Block access to metadata from container
+      iptables:
+        chain: DOCKER-USER
+        action: insert
+        source: 172.17.0.0/16
+        destination: 169.254.0.0/16
+        jump: DROP
+      become: yes
+
+    - name: Ensure docker service is enabled
+      systemd:
+        name: docker
+        state: started
+        enabled: yes
+      become: yes
+
+    - name: start transfer.sh
+      shell:
+        cmd: 'docker run -d --name transfersh --restart always -p 80:8080  dutchcoders/transfer.sh --http-auth-user {{user}} --http-auth-pass {{password}} --provider local --basedir /tmp/'

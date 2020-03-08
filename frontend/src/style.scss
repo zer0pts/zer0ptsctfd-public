@@ -1,0 +1,18 @@
+$white: #393e46;
+$background: #282d31;
+$black: #fff9e2;
+
+$primary: $white;
+$grey-dark: $black;
+$grey-darker: $black;
+$white-ter: #393e46;
+
+$body-background-color: $background;
+$modal-background-background-color: rgba(0,0,0, 0.75);
+$radius: 0;
+
+@import url("https://cdn.materialdesignicons.com/2.5.94/css/materialdesignicons.min.css");
+@import url("https://fonts.googleapis.com/css?family=Nunito:400,700");
+
+@import "~bulma/bulma.sass";
+@import "~bulma-timeline";

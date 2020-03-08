@@ -1,0 +1,31 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  (1..3).each do |i|
+    config.vm.define "node-#{i}" do |s|
+        s.vm.box = "ubuntu/xenial64"
+        s.vm.hostname = "node-#{i}"
+
+        private_ip = "172.16.20.#{i+10}"
+        s.vm.network "private_network", ip: private_ip
+
+        s.vm.provider "virtualbox" do |v|
+          v.cpus = 1
+          v.gui = false
+          v.memory = 1024
+        end
+    end
+  end
+
+  # Create a forwarded port mapping which allows access to a specific port
+  # within the machine from a port on the host machine. In the example below,
+  # accessing "localhost:8080" will access port 80 on the guest machine.
+  # NOTE: This will enable public access to the opened port
+  # config.vm.network "forwarded_port", guest: 80, host: 8080
+
+  # Create a forwarded port mapping which allows access to a specific port
+  # within the machine from a port on the host machine and only allow access
+  # via 127.0.0.1 to disable public access
+  # config.vm.network "forwarded_port", guest: 80, host: 8080, host_ip: "127.0.0.1"
+end

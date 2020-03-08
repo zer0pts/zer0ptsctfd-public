@@ -1,0 +1,19 @@
+version: '3'
+services:
+  db:
+    image: mysql:8
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      MYSQL_RANDOM_ROOT_PASSWORD: 1
+      MYSQL_DATABASE: login
+    volumes:
+      - ./challenge/sql:/docker-entrypoint-initdb.d
+  app:
+    build:
+      context: .
+    ports:
+      - ${PORT:-8888}:80
+    volumes:
+      - ./challenge/html:/var/www/html/

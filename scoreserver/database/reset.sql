@@ -1,0 +1,9 @@
+DROP TABLE config;
+DROP TABLE submissions;
+DROP TABLE challenge_attachments;
+DROP TABLE challenge_tags;
+DROP TABLE challenges;
+DROP TABLE password_reset_tokens;
+DROP TABLE tokens;
+DROP TABLE users;
+DROP TABLE teams;
